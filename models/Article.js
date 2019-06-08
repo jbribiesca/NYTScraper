@@ -2,16 +2,25 @@ var mongoose = require("mongoose");
 
 var Schema = mongoose.Schema;
 
+mongoose.set('useCreateIndex', true)
+
 var ArticleSchema = new Schema({
     title: {
       type: String,
-      unique: true,
-      required: true
+      required: true,
     },
     link: {
       type: String,
-      unique: true,
+      required: true,
+      unique: true
+    },
+    text: {
+      type: String,
       required: true
+    },
+    saved: {
+      type: Boolean,
+      default: false
     },
     note: {
         type: Schema.Types.ObjectId,

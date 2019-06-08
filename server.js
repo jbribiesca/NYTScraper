@@ -12,7 +12,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static("public"));
 
-mongoose.connect(MONGODB_URI);
+mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
 
 //Routes go here:
 
@@ -20,26 +20,27 @@ app.get("/scrape", function(req, res){
     axios.get("https://www.nytimes.com/section/sports").then(function(response){
         var $ = cheerio.load(response.data)
 
-        $("article h2").each(function(i, element){
+        $("article").each(function(i, element){
             var result = {}
             result.title = $(this)
-            .children("a")
+            .find("h2")
             .text();
             result.link = $(this)
-            .children("a")
+            .find("a")
             .attr("href")
-
-            console.log(result)
+            result.text = $(this)
+            .find("p")
+            .text()
+            .trim();
 
             db.Article.create(result)
             .then(function(dbArticle){
-                console.log(dbArticle)
             })
             .catch(function(err){
                 console.log(err)
             })
         })
-        res.send("Scrape Done!")
+        res.redirect("/");
     })
 })
 
@@ -75,6 +76,18 @@ app.get("/articles/:id", function(req, res) {
     })
     .catch(function(err){
       res.json(err)
+    })
+  });
+
+  app.get("/clear", function(req, res){
+    console.log(req.body)
+    db.Article.deleteMany({}, function(err, result){
+      if (err) {
+        console.log(err)
+      } else {
+        console.log(result)
+        res.redirect("/");
+      }
     })
   });
 
