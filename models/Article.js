@@ -3,6 +3,7 @@ var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
 mongoose.set('useCreateIndex', true)
+mongoose.set('useFindAndModify', false);
 
 var ArticleSchema = new Schema({
     title: {
