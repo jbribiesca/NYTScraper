@@ -1,6 +1,6 @@
 $.getJSON("/articles", function (data) {
 
-  if (data.length > 1) {
+  if (data.length >= 1) {
     for (var i = 0; i < data.length; i++) {
       var buttonText;
       if (data[i].saved) {
