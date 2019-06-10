@@ -8,7 +8,7 @@ $.getJSON("/articles", function (data) {
       } else { buttonText = "Save Article" }
 
       // Display the apropos information on the page
-      $("#articles").append(
+      $("#articles").prepend(
         "<div class='card'>"
         + "<a href='https://www.nytimes.com/" + data[i].link + "'>" + "<div class='card-header'>" + data[i].title + " " + "</a>"
         + "<button class='btn btn-primary saveArticle' style='float: right' data-id='" + data[i]._id + "'>" + buttonText + "</button>"

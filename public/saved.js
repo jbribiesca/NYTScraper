@@ -3,11 +3,11 @@ $.getJSON("/articles/saved", function (data) {
     if (data.length >= 1) {
       for (var i = 0; i < data.length; i++) {
         // Display the apropos information on the page
-        $("#articles").append(
+        $("#articles").prepend(
           "<div class='card'>"
           + "<a href='https://www.nytimes.com/" + data[i].link + "'>" + "<div class='card-header'>" + data[i].title + " " + "</a>"
           + "<div class='float-right'>"
-          + "<button class='btn btn-primary deleteArticle' data-id='" + data[i]._id + "'>" + "Delete Saved" + "</button>" + '&nbsp;'
+          + "<button class='btn btn-danger deleteArticle' data-id='" + data[i]._id + "'>" + "Delete Saved" + "</button>" + '&nbsp;'
           + "<button class='btn btn-primary articleNotes' data-id='" + data[i]._id + "'>" + "Notes" + "</button>"
           + "</div>"
           + "</div>"
